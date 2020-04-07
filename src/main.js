@@ -6,12 +6,31 @@ import VueRouter from 'vue-router'
 //2. 手动安装VueRouter
 Vue.use(VueRouter)
 
+// 导入格式化时间的插件
+import moment from 'moment'
+// 定义全局的过滤器
+Vue.filter('dateFormat', function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
+  return moment(dataStr).format(pattern)
+})
+
 // 2.1 导入vue-resource
 import VueResource from 'vue-resource'
 // 2.2 安装 VueResource
 Vue.use(VueResource)
 // 设置请求的根路径
 Vue.http.options.root = 'http://localhost:5000'
+// 全局设置 post 时候表单数据格式组织形式   application/x-www-form-urlencoded
+Vue.http.options.emulateJSON = true;
+
+// 完整导入 Mint-UI 中的组件 
+import MintUI from 'mint-ui'
+Vue.use(MintUI)
+import 'mint-ui/lib/style.css'
+
+// 导入 MUI 的样式
+import './lib/mui/css/mui.min.css'
+// 导入扩展图标样式
+import './lib/mui/css/icons-extra.css'
 
 // 按需引入Element
 import {
@@ -36,7 +55,7 @@ Vue.component(Col.name, Col)
 Vue.use(Slider)
 
 
-import app from './app.vue'
+import app from './App.vue'
 
 // 导入自定路由模块
 import router from './router.js'
