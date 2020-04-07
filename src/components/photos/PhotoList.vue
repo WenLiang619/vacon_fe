@@ -46,3 +46,4 @@ export default {}
 //   touch-action: pan-y;
 // }
 </style>
+
