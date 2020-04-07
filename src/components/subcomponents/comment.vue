@@ -3,9 +3,9 @@
     <h3>发表评论</h3>
     <hr />
 
-    <textarea placeholder="请输入BB的内容(最多120字)" maxlength="120"></textarea>
+    <textarea placeholder="请输入BB的内容(最多120字)" maxlength="120" v-model="msg"></textarea>
 
-    <mt-button type="primary" size="large">发表评论</mt-button>
+    <mt-button type="primary" size="large" @click="postComment">发表评论</mt-button>
 
     <div class="cmt-list">
       <div class="cmt-item" v-for="(item,index) in comments" :key="item.add_time">
@@ -27,7 +27,8 @@ export default {
   data() {
     return {
       pageIndex: 1,
-      comments: []
+      comments: [],
+      msg: '' //评论输入的内容
     }
   },
   created() {
@@ -38,7 +39,8 @@ export default {
       //获取评论
       this.$http
         .get('api/getcomments?pageindex=' + this.pageIndex, {
-          params: { news_id: this.id }
+          //pageIndex也可以放到params里往后端传递，后端从req.query里取出来
+          params: { news_id: this.id } //this.id 从父组件NewsInfo.vue的<comment-box :id="this.id"></comment-box>传递过来的。  props: ['id']
         })
         .then(result => {
           if (result.body.err_code === 0) {
@@ -59,6 +61,36 @@ export default {
       //获取更多
       this.pageIndex++
       this.getComments()
+    },
+
+    // 参数1： 请求的URL地址
+    // 参数2： 提交给服务器的数据对象
+    // 参数3： 定义提交时候，表单中数据的格式  { emulateJSON:true }
+    postComment() {
+      if (this.msg.trim().length === 0) {
+        return Toast({
+          position: 'middle',
+          message: '评论不能位空',
+          duration: 2000
+        })
+      }
+      this.$http
+        .post(
+          'api/postcomment', //this.id 从父组件NewsInfo.vue的<comment-box :id="this.id"></comment-box>传递过来的。  props: ['id']
+          { content: this.msg.trim(), news_id: this.id }, //或者用this.$route.params.id
+          { emulateJSON: true }
+        )
+        .then(result => {
+          if (result.body.err_code === 0) {
+            var cmt = {
+              user_name: '匿名用户',
+              add_time: Date.now(),
+              content: this.msg.trim()
+            }
+            this.comments.unshift(cmt)
+            this.msg = ''
+          }
+        })
     }
   },
   props: ['id']
