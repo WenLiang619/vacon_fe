@@ -26,7 +26,7 @@
           <div class="mui-media-body">Drive美图</div>
         </router-link>
       </li>
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+      <!-- <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
         <a href="#">
           <span class="mui-icon mui-icon-location"></span>
           <div class="mui-media-body">location</div>
@@ -61,7 +61,7 @@
           <span class="mui-icon mui-icon-more"></span>
           <div class="mui-media-body">more</div>
         </a>
-      </li>
+      </li>-->
     </ul>
   </div>
 </template>
@@ -80,13 +80,12 @@ export default {
     getLunbotu() {
       this.lunbotuList = [
         {
-          img:
-            'https://mlskd.cn/resources/images_swiperbbs/3926f8270bb5d9c464dc20d6441e5f9.jpg',
+          img: 'https://www.danfoss.com/static/images/logo.svg',
           url: 'https://www.sohu.com'
         },
         {
           img:
-            'https://mlskd.cn/resources/images_swiperbbs/1af6b2d24f3ff6ef003e7a995823b9c.jpg',
+            'https://danfossworkplaceprodumbraco.azureedge.net/media/37931/covid-19-news-1.jpg?anchor=center&mode=crop&width=1280&height=720&rnd=132283141920000000',
           url: 'https://www.baidu.com'
         },
         {
@@ -106,7 +105,7 @@ export default {
 //   font-size: 26px;
 // }
 .mint-swipe {
-  height: 200px;
+  height: 300px; // 控制轮播图高度
 
   .mint-swipe-item {
     &:nth-child(1) {

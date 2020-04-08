@@ -32,6 +32,10 @@ import './lib/mui/css/mui.min.css'
 // 导入扩展图标样式
 import './lib/mui/css/icons-extra.css'
 
+// 安装图片预览插件
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
+
 // 按需引入Element
 import {
   Switch,

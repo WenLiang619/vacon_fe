@@ -246,7 +246,7 @@ export default {
       position: relative;
       img {
         width: 100%;
-        height: 400px;
+        // height: 500px;
         vertical-align: middle;
       }
       img[lazy='loading'] {

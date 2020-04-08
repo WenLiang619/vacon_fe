@@ -9,6 +9,7 @@ import SearchContainer from './components/tabbar/SearchContainer.vue'
 import NewsListContainer from './components/news/NewsList.vue'
 import NewsInfoContainer from './components/news/NewsInfo.vue'
 import PhotoListContainer from './components/photos/PhotoList.vue'
+import PhotoInfoContainer from './components/photos/PhotoInfo.vue'
 
 import GridSimulatorContainer from './components/vacon/GridSimulator.vue'
 
@@ -44,6 +45,10 @@ var router = new VueRouter({
         {
             path: '/home/photolist',
             component: PhotoListContainer
+        },
+        {
+            path: '/home/photoinfo/:id',
+            component: PhotoInfoContainer
         },
         {
             path: '/home/grid_simulator',
