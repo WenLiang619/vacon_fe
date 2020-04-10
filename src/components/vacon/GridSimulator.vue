@@ -66,6 +66,11 @@
             :to="'/home/photoinfo/'+ item.id"
             tag="li"
           >
+            <img
+              src="https://www.danfoss.com/media/1118/vacon-nxc.jpg?anchor=center&mode=scale&width=515"
+            />
+
+            <hr />
             <img v-lazy="item.img_url" />
             <div class="info">
               <h1 class="info-title">{{ item.title }}</h1>

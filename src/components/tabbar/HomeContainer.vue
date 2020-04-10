@@ -1,10 +1,7 @@
 <template>
   <div>
-    <mt-swipe :auto="4000">
-      <mt-swipe-item v-for="item in lunbotuList" :key="item.url">
-        <img :src="item.img" alt />
-      </mt-swipe-item>
-    </mt-swipe>
+    <!-- 轮播图区域 -->
+    <swiper :lunbotuList="lunbotuList" :isfull="true"></swiper>
 
     <!-- 九宫格 到 6宫格 的改造工程 -->
     <ul class="mui-table-view mui-grid-view mui-grid-9">
@@ -26,13 +23,16 @@
           <div class="mui-media-body">Drive美图</div>
         </router-link>
       </li>
-      <!-- <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
-          <span class="mui-icon mui-icon-location"></span>
-          <div class="mui-media-body">location</div>
-        </a>
-      </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <router-link to="/home/goodslist">
+          <img
+            src="https://www.danfoss.com/media/1126/vacon-nxp-system-drive.jpg?anchor=center&mode=scale&width=515"
+            alt
+          />
+          <div class="mui-media-body">商品购买</div>
+        </router-link>
+      </li>
+      <!-- <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
         <a href="#">
           <span class="mui-icon mui-icon-search"></span>
           <div class="mui-media-body">Search</div>
@@ -67,6 +67,9 @@
 </template>
 
 <script>
+//导入轮播图组件
+import swiper from '../subcomponents/swiper.vue'
+
 export default {
   data() {
     return {
@@ -95,6 +98,9 @@ export default {
         }
       ]
     }
+  },
+  components: {
+    swiper
   }
 }
 </script>
@@ -104,25 +110,7 @@ export default {
 //   background-color: red;
 //   font-size: 26px;
 // }
-.mint-swipe {
-  height: 300px; // 控制轮播图高度
 
-  .mint-swipe-item {
-    &:nth-child(1) {
-      background-color: red;
-    }
-    &:nth-child(2) {
-      background-color: blue;
-    }
-    &:nth-child(3) {
-      background-color: cyan;
-    }
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
 .mui-grid-view.mui-grid-9 {
   background-color: white;
   border: none;

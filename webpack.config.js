@@ -79,7 +79,11 @@ module.exports = {
         alias: { //修改vue被导入时候(import Vue from 'vue')的包的路径,否则导入的是  "main": "dist/vue.runtime.common.js",
             "vue$": "vue/dist/vue.js"
         }
-    }
+    },
+    // devServer: {  //使得服务运行在这个ip 的3000端口，否则就是localhost:3000
+    //     host: '10.62.20.72',
+    //     port: "80"
+    // }
 }
 
 

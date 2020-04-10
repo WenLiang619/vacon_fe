@@ -2,9 +2,9 @@
   <div class="app-container">
     <!-- 顶部 Header 区域 -->
     <mt-header fixed title="Drive展示web-demo">
-      <!-- <span slot="left" @click="goBack" v-show="flag">
+      <span slot="left" @click="goBack" v-show="flag">
         <mt-button icon="back">返回</mt-button>
-      </span>-->
+      </span>
     </mt-header>
 
     <!-- 中间的 路由 router-view 区域 -->
@@ -37,6 +37,19 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      flag: true
+    }
+  },
+  methods: {
+    goBack() {
+      // 点击后退
+      this.$router.go(-1)
+    }
+  }
+}
 </script>
 
 
