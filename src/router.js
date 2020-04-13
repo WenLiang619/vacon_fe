@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 // 导入对应的路由组件
 import HomeContainer from './components/tabbar/HomeContainer.vue'
 import MemberContainer from './components/tabbar/MemberContainer.vue'
-// import ShopcarContainer from './components/tabbar/ShopcarContainer.vue'
+import ShopcarContainer from './components/tabbar/ShopcarContainer.vue'
 import SearchContainer from './components/tabbar/SearchContainer.vue'
 
 import NewsListContainer from './components/news/NewsList.vue'
@@ -12,6 +12,8 @@ import PhotoListContainer from './components/photos/PhotoList.vue'
 import PhotoInfoContainer from './components/photos/PhotoInfo.vue'
 import GoodsListContainer from './components/goods/GoodsList.vue'
 import GoodsInfoContainer from './components/goods/GoodsInfo.vue'
+import GoodsDesc from './components/goods/GoodsDesc.vue'
+import GoodsComment from './components/goods/GoodsComment.vue'
 
 import GridSimulatorContainer from './components/vacon/GridSimulator.vue'
 
@@ -31,7 +33,9 @@ var router = new VueRouter({
             path: '/member',
             component: MemberContainer
         },
-        // { path: '/shopcar', component: ShopcarContainer },
+        {
+             path: '/shopcar',
+             component: ShopcarContainer },
         {
             path: '/search',
             component: SearchContainer
@@ -61,6 +65,17 @@ var router = new VueRouter({
             component: GoodsInfoContainer,
             name: 'goodsinfo'
         },
+        {
+            path: '/home/goodsdesc/:id',
+            component: GoodsDesc,
+            name: 'goodsdesc'
+        },
+        {
+            path: '/home/goodscomment/:id',
+            component: GoodsComment,
+            name: 'goodscomment'
+        },
+        //vacon
         {
             path: '/home/grid_simulator',
             component: GridSimulatorContainer

@@ -3,7 +3,7 @@
     <mt-swipe :auto="3000">
       <!-- 父组件向子组件传递的数据必须是名字为lunbotuList -->
       <mt-swipe-item v-for="item in lunbotuList" :key="item.url">
-        <img :src="item.img" class="{'full': isfull}" alt />
+        <img :src="item.img" :class="{'full': isfull}" alt />
       </mt-swipe-item>
     </mt-swipe>
   </div>

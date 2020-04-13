@@ -22,12 +22,12 @@
         <span class="mui-icon mui-icon-contact"></span>
         <span class="mui-tab-label">会员</span>
       </router-link>
-      <!-- <router-link class="mui-tab-item-llb" to=" ">
+      <router-link class="mui-tab-item-llb" to="/shopcar">
         <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-          <span class="mui-badge">9</span>
+          <span class="mui-badge" id="badge">9</span>
         </span>
         <span class="mui-tab-label">购物车</span>
-      </router-link>-->
+      </router-link>
       <router-link class="mui-tab-item-llb" to="/search">
         <span class="mui-icon mui-icon-search"></span>
         <span class="mui-tab-label">搜索</span>
