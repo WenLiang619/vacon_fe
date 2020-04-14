@@ -52,7 +52,7 @@
       </div>
       <div class="mui-card-footer">
         <mt-button type="primary" size="large" plain @click="goDesc(id)">图文介绍</mt-button>
-        <mt-button type="danger" size="large" plain @click="goComment(id)">图文介绍</mt-button>
+        <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
       </div>
     </div>
   </div>
@@ -87,21 +87,70 @@ export default {
         },
         {
           img:
-            'https://www.danfoss.com/media/15130/ceo-kim-fausing-ar2019-1120x747.jpg?anchor=center&mode=scale&width=520'
+            'https://www.danfoss.com/media/7727/vlt_lvd_refrigerationdrive_fc103.jpg?anchor=center&mode=scale&width=515'
         }
       ]
     },
     getGoodsInfo() {
-      this.goodsinfo = {
-        //向后台要数据   vue-resource
-        add_time: '2015-04-19T17:19:54.000Z',
-        goods_no: '13B25653',
-        id: 89,
-        market_price: 23779,
-        sell_price: 27799,
-        stock_quantity: 5,
-        title: 'IC7_viking'
-      }
+      // 模拟所有商品
+      var allGoods = [
+        {
+          id: 1,
+          title: 'VACON® 20',
+          add_time: '2016-11-22T03:28:42.000Z',
+          zhaiyao: '尽管外形十分紧凑',
+          click: 10,
+          img_url:
+            'https://www.danfoss.com/media/1113/vacon-20.jpg?anchor=center&mode=scale&width=515',
+          sell_price: 156,
+          market_price: 127,
+          goods_no: '13B25650',
+          stock_quantity: 64
+        },
+        {
+          id: 2,
+          title: 'VACON® NXP Air Cooled',
+          add_time: '2016-05-01T03:42:42.000Z',
+          zhaiyao:
+            'VACON® NXP Air Cooled 变频器具有精确、强大的性能，可满足应用对变频器稳定耐用性和动态性的要求。功率范围齐全，最高可达 2 MW，提供壁挂式安装、轻体柜机和 IP00 模块。',
+          click: 20,
+          img_url:
+            'https://www.danfoss.com/media/1119/vacon-nxp-air-cooled.jpg?anchor=center&mode=scale&width=515',
+          sell_price: 605,
+          market_price: 585,
+          goods_no: '13B25651',
+          stock_quantity: 60
+        },
+        {
+          id: 3,
+          title: 'VACON® NXC',
+          add_time: '2018-02-25T03:41:02.000Z',
+          zhaiyao:
+            'VACON® NXC 变频柜结构紧凑，可在采矿业、油气行业、供水和废水处理行业等恶劣工况下可靠运行。',
+          click: 45,
+          img_url:
+            'https://www.danfoss.com/media/1118/vacon-nxc.jpg?anchor=center&mode=scale&width=515',
+          sell_price: 265,
+          market_price: 245,
+          goods_no: '13B25652',
+          stock_quantity: 27
+        },
+        {
+          id: 4,
+          title: 'VACON® 3000',
+          add_time: '2005-03-05T08:08:18.000Z',
+          zhaiyao: '个性化定制，以满足最严苛的 MV 要求',
+          click: 23,
+          img_url:
+            'https://www.danfoss.com/media/1127/vacon-3000.jpg?anchor=center&mode=scale&width=515',
+          sell_price: 2589,
+          market_price: 2455,
+          goods_no: '13B25653',
+          stock_quantity: 44
+        }
+      ]
+      // 应该向后台要数据   vue-resource
+      this.goodsinfo = allGoods[this.id - 1]
     },
     goDesc(id) {
       //点击使用编程式导航 跳转到图文介绍页面
@@ -112,10 +161,18 @@ export default {
       this.$router.push({ name: 'goodscomment', params: { id: id } })
     },
     addToShopCar() {
+      console.log(this.goodsinfo)
       //点击添加到购物车
-      console.log(this.ballFlag)
       this.ballFlag = !this.ballFlag
-      console.log(this.ballFlag)
+      //拼接出一个要保存到store中car数组里的商品信息对象
+      var goodsinfo = {
+        id: this.id,
+        count: this.selectedCount,
+        price: this.goodsinfo.sell_price,
+        selected: true
+      }
+      // 调用 store中的 mutations 来将商品加入购物车
+      this.$store.commit('addTocar', goodsinfo)
     },
     beforeEnter(el) {
       el.style.transform = 'translate(0,0)'

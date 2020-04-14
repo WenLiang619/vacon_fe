@@ -24,7 +24,7 @@
       </router-link>
       <router-link class="mui-tab-item-llb" to="/shopcar">
         <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-          <span class="mui-badge" id="badge">9</span>
+          <span class="mui-badge" id="badge">{{ $store.getters.getAllCount }}</span>
         </span>
         <span class="mui-tab-label">购物车</span>
       </router-link>
@@ -40,13 +40,26 @@
 export default {
   data() {
     return {
-      flag: true
+      flag: false
     }
+  },
+  created() {
+    this.flag = this.$route.path === '/home' ? false : true
   },
   methods: {
     goBack() {
       // 点击后退
       this.$router.go(-1)
+    }
+  },
+  watch: {
+    '$route.path': function(newVal) {
+      console.log(newVal)
+      if (newVal === '/home') {
+        this.flag = false
+      } else {
+        this.flag = true
+      }
     }
   }
 }

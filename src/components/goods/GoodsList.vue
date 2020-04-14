@@ -59,51 +59,53 @@ export default {
       this.goodslist = [
         {
           id: 1,
-          title: 'VLT® Refrigeration Drive FC 103',
-          add_time: '2015-12-21T04:58:12.000Z',
-          zhaiyao: 'VLT® Refrigeration Drive FC 103',
-          click: 90,
+          title: 'VACON® 20',
+          add_time: '2016-11-22T03:28:42.000Z',
+          zhaiyao: '尽管外形十分紧凑',
+          click: 10,
           img_url:
-            'https://www.danfoss.com/media/7727/vlt_lvd_refrigerationdrive_fc103.jpg?anchor=center&mode=scale&width=515',
-          sell_price: 21765,
-          market_price: 24595,
-          stock_quantity: 60
+            'https://www.danfoss.com/media/1113/vacon-20.jpg?anchor=center&mode=scale&width=515',
+          sell_price: 156,
+          market_price: 127,
+          stock_quantity: 64
         },
         {
           id: 2,
-          title: 'VLT® Refrigeration Drive FC 103',
-          add_time: '2015-12-21T04:58:12.000Z',
-          zhaiyao: 'VACON® 20 X',
-          click: 90,
+          title: 'VACON® NXP Air Cooled',
+          add_time: '2016-05-01T03:42:42.000Z',
+          zhaiyao:
+            'VACON® NXP Air Cooled 变频器具有精确、强大的性能，可满足应用对变频器稳定耐用性和动态性的要求。功率范围齐全，最高可达 2 MW，提供壁挂式安装、轻体柜机和 IP00 模块。',
+          click: 20,
           img_url:
-            'https://www.danfoss.com/media/7727/vlt_lvd_refrigerationdrive_fc103.jpg?anchor=center&mode=scale&width=515',
-          sell_price: 2165,
-          market_price: 24505,
+            'https://www.danfoss.com/media/1119/vacon-nxp-air-cooled.jpg?anchor=center&mode=scale&width=515',
+          sell_price: 605,
+          market_price: 585,
           stock_quantity: 60
         },
         {
           id: 3,
-          title: 'VLT® Refrigeration Drive FC 103',
-          add_time: '2015-12-21T04:58:12.000Z',
-          zhaiyao: 'VLT® Refrigeration Drive FC 103',
-          click: 90,
+          title: 'VACON® NXC',
+          add_time: '2018-02-25T03:41:02.000Z',
+          zhaiyao:
+            'VACON® NXC 变频柜结构紧凑，可在采矿业、油气行业、供水和废水处理行业等恶劣工况下可靠运行。',
+          click: 45,
           img_url:
-            'https://www.danfoss.com/media/1110/vacon-20-x.jpg?anchor=center&mode=scale&width=515',
-          sell_price: 2165,
+            'https://www.danfoss.com/media/1118/vacon-nxc.jpg?anchor=center&mode=scale&width=515',
+          sell_price: 265,
           market_price: 245,
-          stock_quantity: 60
+          stock_quantity: 27
         },
         {
           id: 4,
-          title: 'VLT® Refrigeration Drive FC 103',
-          add_time: '2015-12-21T04:58:12.000Z',
-          zhaiyao: 'VLT® Refrigeration Drive FC 103',
-          click: 90,
+          title: 'VACON® 3000',
+          add_time: '2005-03-05T08:08:18.000Z',
+          zhaiyao: '个性化定制，以满足最严苛的 MV 要求',
+          click: 23,
           img_url:
-            'https://www.danfoss.com/media/7727/vlt_lvd_refrigerationdrive_fc103.jpg?anchor=center&mode=scale&width=515',
-          sell_price: 265,
+            'https://www.danfoss.com/media/1127/vacon-3000.jpg?anchor=center&mode=scale&width=515',
+          sell_price: 2589,
           market_price: 2455,
-          stock_quantity: 61
+          stock_quantity: 44
         }
       ]
     },
