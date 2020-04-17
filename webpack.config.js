@@ -80,10 +80,12 @@ module.exports = {
             "vue$": "vue/dist/vue.js"
         }
     },
-    // devServer: {  //使得服务运行在这个ip 的3000端口，否则就是localhost:3000
-    //     host: '10.62.20.72',
-    //     port: "80"
-    // }
+    devServer: {  //使得服务运行在这个ip 的3000端口，否则就是localhost:3000
+        // host: '10.62.20.72',
+        // port: "80"
+
+        disableHostCheck: true
+    }
 }
 
 
