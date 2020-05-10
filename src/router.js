@@ -16,6 +16,8 @@ import GoodsDesc from './components/goods/GoodsDesc.vue'
 import GoodsComment from './components/goods/GoodsComment.vue'
 
 import GridSimulatorContainer from './components/vacon/GridSimulator.vue'
+import TempeRecordingContainer from './components/iot/Temperature.vue'
+
 
 
 //3. 创建路由对象
@@ -34,8 +36,9 @@ var router = new VueRouter({
             component: MemberContainer
         },
         {
-             path: '/shopcar',
-             component: ShopcarContainer },
+            path: '/shopcar',
+            component: ShopcarContainer
+        },
         {
             path: '/search',
             component: SearchContainer
@@ -75,10 +78,15 @@ var router = new VueRouter({
             component: GoodsComment,
             name: 'goodscomment'
         },
-        //vacon
+        //vacon grid simulator control
         {
             path: '/home/grid_simulator',
             component: GridSimulatorContainer
+        },
+        //temperature recording
+        {
+            path: '/home/tempe_recording',
+            component: TempeRecordingContainer
         }
     ],
 

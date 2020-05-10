@@ -170,7 +170,10 @@ Vue.component(Row.name, Row)
 Vue.component(Col.name, Col)
 Vue.use(Slider)
 
+// 全局引入echarts
+import echarts from 'echarts'
 
+// 引入首页
 import app from './App.vue'
 
 // 导入自定路由模块
