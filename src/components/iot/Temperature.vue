@@ -116,33 +116,7 @@ export default {
         title: {
           text: '温升测试'
         },
-        // legend: {
-        //   orient: 'vertical',
-        //   x: 'left', //可设定图例在左、右、居中
-        //   y: 'center', //可设定图例在上、下、居中
-        //   data: [
-        //     'qq',
-        //     't2',
-        //     't3',
-        //     't4',
-        //     't5',
-        //     't6',
-        //     't7',
-        //     't8',
-        //     't9',
-        //     't10',
-        //     't11',
-        //     't12',
-        //     't13',
-        //     't14',
-        //     't15',
-        //     't16',
-        //     't17',
-        //     't18',
-        //     't19',
-        //     't20'
-        //   ]
-        // },
+
         legend: [
           {
             // icon: 'bar',
@@ -329,6 +303,7 @@ export default {
 
     runStop: function(run) {
       console.log(this.cycleTime)
+      console.log(run) // 开关开了就是 true 否则就是false
       if (run) {
         this.timerId = setInterval(() => {
           this.refreshTime(false)
@@ -397,14 +372,16 @@ export default {
         console.log('haha')
         console.log(oldVal)
         console.log(val)
-        // if (val != oldVal) {
-        //   console.log('YY')
-        //   // this.run = false
-        //   this.disable = false
-        //   clearInterval(this.timerId)
-        // } else {
-        //   console.log('OKKK')
-        // }
+        if (val && oldVal && val != oldVal) {
+          console.log('YY')
+          this.run = false
+          clearInterval(this.timerId)
+        } else if (val && !oldVal) {
+          this.disable = false
+          console.log('huhu')
+        } else {
+          console.log('OKKK')
+        }
       },
       deep: true, // 深度监视，只有这样才能监视到数组或者对象孩子...孩子... 成员的改变
       immediate: true // 无乱变化与否，你上来就给我调用一次，如何使用看需求
