@@ -1,11 +1,11 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="16">
+      <el-col :span="14">
         <div id="main" style="width: 850px;height:500px;"></div>
       </el-col>
 
-      <el-col :span="8">
+      <el-col :span="10">
         <el-row :gutter="8">
           <el-col :span="7">
             <div class="grid-content bg-purple">Start/Stop</div>
@@ -17,8 +17,25 @@
                 @change="runStop"
                 active-color="#13ce66"
                 inactive-color="#ff4949"
+                :disabled="disable"
               ></el-switch>
             </div>
+          </el-col>
+        </el-row>
+        <el-row :gutter="8">
+          <el-col :span="7">
+            <div class="grid-content bg-purple">扫描周期(s)</div>
+          </el-col>
+          <el-col :span="8">
+            <!-- <div class="grid-content bg-purple-light"> -->
+            <el-input
+              onkeyup="this.value=this.value.replace(/\D|^0/g,'')"
+              onafterpaste="this.value=this.value.replace(/\D|^0/g,'')"
+              min="2"
+              v-model="cycleTime"
+              placeholder="请输入扫描周期"
+            ></el-input>
+            <!-- </div> -->
           </el-col>
         </el-row>
       </el-col>
@@ -37,8 +54,16 @@ export default {
       data: [],
       myChart: null,
       run: false,
-      timerId: null
+      timerId: null,
+      cycleTime: '',
+      disable: true
     }
+  },
+
+  created() {
+    // for (var i = 0; i < 100; i++) {
+    //   // this.addData()
+    // }
   },
 
   mounted() {
@@ -81,12 +106,6 @@ export default {
     clearInterval(this.timerId)
   },
 
-  created() {
-    for (var i = 0; i < 100; i++) {
-      // this.addData()
-    }
-  },
-
   methods: {
     drawChart() {
       // 基于准备好的dom，初始化echarts实例
@@ -97,29 +116,69 @@ export default {
         title: {
           text: '温升测试'
         },
-        legend: {
-          orient: 'vertical',
-          x: 'left', //可设定图例在左、右、居中
-          y: 'center', //可设定图例在上、下、居中
-          data: [
-            't1',
-            't2',
-            't3',
-            't4',
-            't5',
-            't6',
-            't7',
-            't8',
-            't9',
-            't10',
-            't11',
-            't12',
-            't13',
-            't14',
-            't15',
-            't16'
-          ]
-        },
+        // legend: {
+        //   orient: 'vertical',
+        //   x: 'left', //可设定图例在左、右、居中
+        //   y: 'center', //可设定图例在上、下、居中
+        //   data: [
+        //     'qq',
+        //     't2',
+        //     't3',
+        //     't4',
+        //     't5',
+        //     't6',
+        //     't7',
+        //     't8',
+        //     't9',
+        //     't10',
+        //     't11',
+        //     't12',
+        //     't13',
+        //     't14',
+        //     't15',
+        //     't16',
+        //     't17',
+        //     't18',
+        //     't19',
+        //     't20'
+        //   ]
+        // },
+        legend: [
+          {
+            // icon: 'bar',
+            orient: 'vertical',
+            x: 'left', //可设定图例在左、右、居中
+            y: 'center', //可设定图例在上、下、居中
+            textStyle: {
+              // color: '#B8B6B8'
+            },
+            data: ['qq', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10'],
+            x: 'left'
+          },
+          {
+            // icon: 'bar',
+            orient: 'vertical',
+            x: 'left', //可设定图例在左、右、居中
+            y: 'center', //可设定图例在上、下、居中
+            textStyle: {
+              // color: '#B8B6B8'
+            },
+            data: [
+              't11',
+              't12',
+              't13',
+              't14',
+              't15',
+              't16',
+              't17',
+              't18',
+              't19',
+              't20'
+            ],
+            x: 'right'
+          }
+        ],
+
         xAxis: {
           type: 'category', // 还有其他的type，可以去官网喵两眼哦
           // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], // x轴数据
@@ -133,7 +192,7 @@ export default {
             fontSize: 14
           },
           axisLabel: {
-            interval: 5,
+            interval: 0,
             rotate: 20
           }
         },
@@ -151,7 +210,7 @@ export default {
         },
         series: [
           {
-            name: 't1',
+            name: 'qq',
             data: [],
             type: 'line'
           },
@@ -229,6 +288,26 @@ export default {
             name: 't16',
             data: [],
             type: 'line'
+          },
+          {
+            name: 't17',
+            data: [],
+            type: 'line'
+          },
+          {
+            name: 't18',
+            data: [],
+            type: 'line'
+          },
+          {
+            name: 't19',
+            data: [],
+            type: 'line'
+          },
+          {
+            name: 't20',
+            data: [],
+            type: 'line'
           }
         ]
       }
@@ -249,30 +328,86 @@ export default {
     },
 
     runStop: function(run) {
+      console.log(this.cycleTime)
       if (run) {
-        var that = this
-        this.timerId = setInterval(function() {
-          that.refreshTime(false)
+        this.timerId = setInterval(() => {
+          this.refreshTime(false)
 
-          var option = that.myChart.getOption()
+          var option = this.myChart.getOption()
           var seriesData = option.series
           for (var i = 0; i < seriesData.length; i++) {
             seriesData[i].data.push(Math.random() * 100)
           }
 
-          that.myChart.setOption({
+          this.myChart.setOption({
             xAxis: {
-              data: that.time
+              data: this.time
             },
 
             series: seriesData
           })
-        }, 2000)
+        }, parseInt(this.cycleTime) * 1000)
       } else {
         // 保存测试数据到本地
 
         clearInterval(this.timerId)
       }
+    }
+
+    // runStop2: function(run) {
+    //   if (run && !this.timerId) {
+    //     this.timerId = setTimeout(() => {
+    //       console.log(this)
+    //       this.refreshTime(false)
+
+    //       var option = this.myChart.getOption()
+    //       var seriesData = option.series
+    //       for (var i = 0; i < seriesData.length; i++) {
+    //         seriesData[i].data.push(Math.random() * 100)
+    //       }
+
+    //       this.myChart.setOption({
+    //         xAxis: {
+    //           data: this.time
+    //         },
+
+    //         series: seriesData
+    //       })
+    //     }, 2000)
+    //   } else {
+    //     console.log(this.timerId)
+    //     clearTimeout(this.timerId)
+    //     alert('over')
+    //   }
+    // },
+  },
+
+  watch: {
+    // 监视 cycleTime 的改变，当 cycleTime 发生变化的时候做业务定制处理
+    // 引用类型只能监视一层，无法监视内部成员的子成员的改变
+    cycleTime: {
+      // 当监视到 cycleTime 改变的时候会自动调用 handler 方法
+      // 你监视的谁，val 就是谁
+      // val 的变化之后的最新值
+      // oldVal 是变化之前的值
+      handler(val, oldVal) {
+        // 监视到 cycleTime 变化，把 cycleTime 本次存储记录数据的状态
+        // 这里既可以通过 this.cycleTime 来访问，也可以通过 val 来得到最新的 cycleTime
+
+        console.log('haha')
+        console.log(oldVal)
+        console.log(val)
+        // if (val != oldVal) {
+        //   console.log('YY')
+        //   // this.run = false
+        //   this.disable = false
+        //   clearInterval(this.timerId)
+        // } else {
+        //   console.log('OKKK')
+        // }
+      },
+      deep: true, // 深度监视，只有这样才能监视到数组或者对象孩子...孩子... 成员的改变
+      immediate: true // 无乱变化与否，你上来就给我调用一次，如何使用看需求
     }
   }
 }

@@ -153,7 +153,10 @@ import {
   Switch,
   Slider,
   Row,
-  Col
+  Col,
+  Input
+
+
 } from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
@@ -169,6 +172,7 @@ Vue.component(Switch.name, Switch)
 Vue.component(Row.name, Row)
 Vue.component(Col.name, Col)
 Vue.use(Slider)
+Vue.component(Input.name, Input)
 
 // 全局引入echarts
 import echarts from 'echarts'
