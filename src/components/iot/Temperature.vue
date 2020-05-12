@@ -1,11 +1,11 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="14">
-        <div id="main" style="width: 850px;height:500px;"></div>
+      <el-col :span="17">
+        <div id="main" style="width: 1050px;height:680px;"></div>
       </el-col>
 
-      <el-col :span="10">
+      <el-col :span="7">
         <el-row :gutter="8">
           <el-col :span="7">
             <div class="grid-content bg-purple">Start/Stop</div>
@@ -24,19 +24,33 @@
         </el-row>
         <el-row :gutter="8">
           <el-col :span="7">
-            <div class="grid-content bg-purple">扫描周期(s)</div>
+            <div class="grid-content bg-purple">Sweep Delay(s)</div>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="3">
             <!-- <div class="grid-content bg-purple-light"> -->
             <el-input
               onkeyup="this.value=this.value.replace(/\D|^0/g,'')"
               onafterpaste="this.value=this.value.replace(/\D|^0/g,'')"
               min="2"
               v-model="cycleTime"
-              placeholder="请输入扫描周期"
+              placeholder
             ></el-input>
             <!-- </div> -->
           </el-col>
+        </el-row>
+        <el-row>
+          <el-table :data="tableData" height="530" stripe border style="width: 100%">
+            <el-table-column type="index" :index="indexMethod"></el-table-column>
+            <el-table-column prop="chNo" label="Channel No." width="100"></el-table-column>
+            <el-table-column prop="value" label="Value" width="100"></el-table-column>
+            <el-table-column prop="lable" label="Lable" width="100"></el-table-column>
+            <el-table-column prop label="Edit Lable" width="100">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.lable" v-on:input="lableChange(scope.row)"></el-input>
+                <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">Edit Lable</el-button> -->
+              </template>
+            </el-table-column>
+          </el-table>
         </el-row>
       </el-col>
     </el-row>
@@ -56,7 +70,109 @@ export default {
       run: false,
       timerId: null,
       cycleTime: '',
-      disable: true
+      disable: true,
+      tableData: [
+        {
+          chNo: 'Ch1',
+          value: '224',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch2',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch3',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch4',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch5',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch6',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch7',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch8',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch9',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch10',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch11',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch12',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch13',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch14',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch15',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch16',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch17',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch18',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch19',
+          value: '23',
+          lable: 'c1'
+        },
+        {
+          chNo: 'Ch20',
+          value: '23',
+          lable: 'c1'
+        }
+      ]
     }
   },
 
@@ -126,7 +242,7 @@ export default {
             textStyle: {
               // color: '#B8B6B8'
             },
-            data: ['qq', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10'],
+            data: ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10'],
             x: 'left'
           },
           {
@@ -184,7 +300,7 @@ export default {
         },
         series: [
           {
-            name: 'qq',
+            name: 't1',
             data: [],
             type: 'line'
           },
@@ -303,7 +419,7 @@ export default {
 
     runStop: function(run) {
       console.log(this.cycleTime)
-      console.log(run) // 开关开了就是 true 否则就是false
+      console.log(run) // 开关开了就是 true  关了就是false
       if (run) {
         this.timerId = setInterval(() => {
           this.refreshTime(false)
@@ -311,7 +427,9 @@ export default {
           var option = this.myChart.getOption()
           var seriesData = option.series
           for (var i = 0; i < seriesData.length; i++) {
-            seriesData[i].data.push(Math.random() * 100)
+            var t = Math.random() * 100
+            seriesData[i].data.push(t)
+            this.tableData[i].value = t
           }
 
           this.myChart.setOption({
@@ -327,34 +445,56 @@ export default {
 
         clearInterval(this.timerId)
       }
+    },
+
+    indexMethod(index) {
+      return index + 1
+    },
+
+    handleClick(row) {
+      console.log(row)
+    },
+
+    lableChange(rowData) {
+      console.log(rowData)
+      console.log(rowData.chNo + '  ====>  ' + rowData.lable)
+      // update option.series and option.legend.data
+      var itemNo = parseInt(rowData.chNo.slice(2))
+      var option = this.myChart.getOption()
+      var seriesData = option.series
+
+      var legendOne = option.legend[0]
+      var legendTwo = option.legend[1]
+
+      seriesData[itemNo - 1].name = rowData.lable
+      console.log('------------')
+      console.log(seriesData) //设置到option.series
+      if (itemNo <= 10) {
+        console.log(itemNo)
+        console.log(legendOne)
+        legendOne.data[itemNo - 1] = rowData.lable //设置到option.legend
+        console.log('=======')
+        console.log(legendOne)
+
+        this.myChart.setOption({
+          legend: [legendOne, legendTwo],
+
+          series: seriesData
+        })
+      } else {
+        console.log(itemNo)
+        console.log(legendTwo)
+        legendTwo.data[itemNo - 10 - 1] = rowData.lable // 设置到option.legend
+        console.log('#######')
+        console.log(legendTwo)
+
+        this.myChart.setOption({
+          legend: [legendOne, legendTwo],
+
+          series: seriesData
+        })
+      }
     }
-
-    // runStop2: function(run) {
-    //   if (run && !this.timerId) {
-    //     this.timerId = setTimeout(() => {
-    //       console.log(this)
-    //       this.refreshTime(false)
-
-    //       var option = this.myChart.getOption()
-    //       var seriesData = option.series
-    //       for (var i = 0; i < seriesData.length; i++) {
-    //         seriesData[i].data.push(Math.random() * 100)
-    //       }
-
-    //       this.myChart.setOption({
-    //         xAxis: {
-    //           data: this.time
-    //         },
-
-    //         series: seriesData
-    //       })
-    //     }, 2000)
-    //   } else {
-    //     console.log(this.timerId)
-    //     clearTimeout(this.timerId)
-    //     alert('over')
-    //   }
-    // },
   },
 
   watch: {
@@ -372,13 +512,30 @@ export default {
         console.log('haha')
         console.log(oldVal)
         console.log(val)
-        if (val && oldVal && val != oldVal) {
+        if (
+          parseInt(val) &&
+          parseInt(oldVal) &&
+          parseInt(val) != parseInt(oldVal)
+        ) {
           console.log('YY')
           this.run = false
           clearInterval(this.timerId)
-        } else if (val && !oldVal) {
+        } else if (parseInt(val) && parseInt(oldVal)) {
+          console.log('QQQ')
+          this.run = false
+          this.disable = true
+          clearInterval(this.timerId)
+        } else if (!parseInt(val) && parseInt(oldVal)) {
+          console.log('CCC')
+          this.run = false
+          this.disable = true
+          clearInterval(this.timerId)
+        } else if (parseInt(val) && !parseInt(oldVal)) {
           this.disable = false
           console.log('huhu')
+        } else if (!parseInt(val) && !parseInt(oldVal)) {
+          this.disable = true
+          console.log('RRR')
         } else {
           console.log('OKKK')
         }

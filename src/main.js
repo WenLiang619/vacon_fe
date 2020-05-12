@@ -154,7 +154,10 @@ import {
   Slider,
   Row,
   Col,
-  Input
+  Input,
+  Table,
+  TableColumn,
+  Button
 
 
 } from 'element-ui'
@@ -173,6 +176,9 @@ Vue.component(Row.name, Row)
 Vue.component(Col.name, Col)
 Vue.use(Slider)
 Vue.component(Input.name, Input)
+Vue.component(Table.name, Table)
+Vue.component(TableColumn.name, TableColumn)
+Vue.component(Button.name, Button)
 
 // 全局引入echarts
 import echarts from 'echarts'
