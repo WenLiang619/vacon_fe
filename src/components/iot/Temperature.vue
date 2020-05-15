@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div @click="containerClick">
     <el-row>
       <el-col :span="17">
-        <div id="main" style="width: 1050px;height:680px;"></div>
+        <div id="main" style="width: 1050px;height:680px;" @click.stop="echartClick"></div>
       </el-col>
 
       <el-col :span="7">
@@ -43,13 +43,26 @@
             <el-table-column type="index" :index="indexMethod"></el-table-column>
             <el-table-column prop="chNo" label="Channel No." width="100"></el-table-column>
             <el-table-column prop="value" label="Value" width="100"></el-table-column>
-            <el-table-column prop="lable" label="Lable" width="100"></el-table-column>
+            <!-- <el-table-column prop="lable" label="Lable" width="100"></el-table-column> -->
             <el-table-column prop label="Edit Lable" width="100">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.lable" v-on:input="lableChange(scope.row)"></el-input>
                 <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">Edit Lable</el-button> -->
               </template>
             </el-table-column>
+          </el-table>
+        </el-row>
+        <el-row v-show="true">
+          <el-table :data="tableDataForExcel">
+            <el-table-column prop="chNo" label="Channel No."></el-table-column>
+            <el-table-column prop="lable" label="Lable"></el-table-column>
+            <el-table-column v-for="(t, i)  in time" :key="t" prop="value" :label="t">
+              <template slot-scope="scope">
+                <!-- <i class="el-icon-time"></i> -->
+                <span style="margin-left: 10px">{{ scope.row.value[i] }}</span>
+              </template>
+            </el-table-column>
+            <!-- <el-table-column v-for="v in value" :key="v">{{v}}</el-table-column> -->
           </el-table>
         </el-row>
       </el-col>
@@ -65,7 +78,7 @@ export default {
   data() {
     return {
       time: [],
-      data: [],
+      nowStr: '',
       myChart: null,
       run: false,
       timerId: null,
@@ -74,104 +87,132 @@ export default {
       tableData: [
         {
           chNo: 'Ch1',
-          value: '224',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch1'
         },
         {
           chNo: 'Ch2',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch2'
         },
         {
           chNo: 'Ch3',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch3'
         },
         {
           chNo: 'Ch4',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch4'
         },
         {
           chNo: 'Ch5',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch5'
         },
         {
           chNo: 'Ch6',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch6'
         },
         {
           chNo: 'Ch7',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch7'
         },
         {
           chNo: 'Ch8',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch8'
         },
         {
           chNo: 'Ch9',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch9'
         },
         {
           chNo: 'Ch10',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch10'
         },
         {
           chNo: 'Ch11',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch11'
         },
         {
           chNo: 'Ch12',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch12'
         },
         {
           chNo: 'Ch13',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch13'
         },
         {
           chNo: 'Ch14',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch14'
         },
         {
           chNo: 'Ch15',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch15'
         },
         {
           chNo: 'Ch16',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch16'
         },
         {
           chNo: 'Ch17',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch17'
         },
         {
           chNo: 'Ch18',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch18'
         },
         {
           chNo: 'Ch19',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch19'
         },
         {
           chNo: 'Ch20',
-          value: '23',
-          lable: 'c1'
+          value: '0',
+          lable: 'Ch20'
         }
+      ],
+      tableDataForExcel: [
+        {
+          chNo: 'Ch1',
+          value: [],
+          lable: 'Ch1',
+          time: [],
+          timeVal: []
+        },
+        { chNo: 'Ch2', value: [], lable: 'Ch2', time: [], timeVal: [] },
+        { chNo: 'Ch3', value: [], lable: 'Ch3', time: [], timeVal: [] },
+        { chNo: 'Ch4', value: [], lable: 'Ch4', time: [], timeVal: [] },
+        { chNo: 'Ch5', value: [], lable: 'Ch5', time: [], timeVal: [] },
+        { chNo: 'Ch6', value: [], lable: 'Ch6', time: [], timeVal: [] },
+        { chNo: 'Ch7', value: [], lable: 'Ch7', time: [], timeVal: [] },
+        { chNo: 'Ch8', value: [], lable: 'Ch8', time: [], timeVal: [] },
+        { chNo: 'Ch9', value: [], lable: 'Ch9', time: [], timeVal: [] },
+        { chNo: 'Ch10', value: [], lable: 'Ch10', time: [], timeVal: [] },
+        { chNo: 'Ch11', value: [], lable: 'Ch11', time: [], timeVal: [] },
+        { chNo: 'Ch12', value: [], lable: 'Ch12', time: [], timeVal: [] },
+        { chNo: 'Ch13', value: [], lable: 'Ch13', time: [], timeVal: [] },
+        { chNo: 'Ch14', value: [], lable: 'Ch14', time: [], timeVal: [] },
+        { chNo: 'Ch15', value: [], lable: 'Ch15', time: [], timeVal: [] },
+        { chNo: 'Ch16', value: [], lable: 'Ch16', time: [], timeVal: [] },
+        { chNo: 'Ch17', value: [], lable: 'Ch17', time: [], timeVal: [] },
+        { chNo: 'Ch18', value: [], lable: 'Ch18', time: [], timeVal: [] },
+        { chNo: 'Ch19', value: [], lable: 'Ch19', time: [], timeVal: [] },
+        { chNo: 'Ch20', value: [], lable: 'Ch20', time: [], timeVal: [] }
       ]
     }
   },
@@ -230,7 +271,19 @@ export default {
       //指定图表的配置项和数据
       let option = {
         title: {
-          text: '温升测试'
+          text: '温升测试',
+          left: 'center'
+        },
+
+        toolbox: {
+          show: true,
+          feature: {
+            saveAsImage: {
+              show: true,
+              excludeComponents: ['toolbox'],
+              pixelRatio: 2
+            }
+          }
         },
 
         legend: [
@@ -242,7 +295,18 @@ export default {
             textStyle: {
               // color: '#B8B6B8'
             },
-            data: ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10'],
+            data: [
+              'Ch1',
+              'Ch2',
+              'Ch3',
+              'Ch4',
+              'Ch5',
+              'Ch6',
+              'Ch7',
+              'Ch8',
+              'Ch9',
+              'Ch10'
+            ],
             x: 'left'
           },
           {
@@ -254,16 +318,16 @@ export default {
               // color: '#B8B6B8'
             },
             data: [
-              't11',
-              't12',
-              't13',
-              't14',
-              't15',
-              't16',
-              't17',
-              't18',
-              't19',
-              't20'
+              'Ch11',
+              'Ch12',
+              'Ch13',
+              'Ch14',
+              'Ch15',
+              'Ch16',
+              'Ch17',
+              'Ch18',
+              'Ch19',
+              'Ch20'
             ],
             x: 'right'
           }
@@ -282,13 +346,13 @@ export default {
             fontSize: 14
           },
           axisLabel: {
-            interval: 0,
+            interval: 5,
             rotate: 20
           }
         },
         yAxis: {
           type: 'value',
-          name: 'degree', // y轴名称
+          name: '℃', // y轴名称
           // y轴名称样式
           nameTextStyle: {
             fontWeight: 400,
@@ -300,102 +364,102 @@ export default {
         },
         series: [
           {
-            name: 't1',
+            name: 'Ch1',
             data: [],
             type: 'line'
           },
           {
-            name: 't2',
+            name: 'Ch2',
             data: [],
             type: 'line'
           },
           {
-            name: 't3',
+            name: 'Ch3',
             data: [],
             type: 'line'
           },
           {
-            name: 't4',
+            name: 'Ch4',
             data: [],
             type: 'line'
           },
           {
-            name: 't5',
+            name: 'Ch5',
             data: [],
             type: 'line'
           },
           {
-            name: 't6',
+            name: 'Ch6',
             data: [],
             type: 'line'
           },
           {
-            name: 't7',
+            name: 'Ch7',
             data: [],
             type: 'line'
           },
           {
-            name: 't8',
+            name: 'Ch8',
             data: [],
             type: 'line'
           },
           {
-            name: 't9',
+            name: 'Ch9',
             data: [],
             type: 'line'
           },
           {
-            name: 't10',
+            name: 'Ch10',
             data: [],
             type: 'line'
           },
           {
-            name: 't11',
+            name: 'Ch11',
             data: [],
             type: 'line'
           },
           {
-            name: 't12',
+            name: 'Ch12',
             data: [],
             type: 'line'
           },
           {
-            name: 't13',
+            name: 'Ch13',
             data: [],
             type: 'line'
           },
           {
-            name: 't14',
+            name: 'Ch14',
             data: [],
             type: 'line'
           },
           {
-            name: 't15',
+            name: 'Ch15',
             data: [],
             type: 'line'
           },
           {
-            name: 't16',
+            name: 'Ch16',
             data: [],
             type: 'line'
           },
           {
-            name: 't17',
+            name: 'Ch17',
             data: [],
             type: 'line'
           },
           {
-            name: 't18',
+            name: 'Ch18',
             data: [],
             type: 'line'
           },
           {
-            name: 't19',
+            name: 'Ch19',
             data: [],
             type: 'line'
           },
           {
-            name: 't20',
+            name: 'Ch20',
             data: [],
             type: 'line'
           }
@@ -408,9 +472,13 @@ export default {
 
     refreshTime: function(shift) {
       var now = new Date()
-      var nowStr = now.format('yyyy-MM-dd hh:mm:ss')
+      this.nowStr = now.format('yyyy-MM-dd hh:mm:ss')
+      var timeNow = this.nowStr
 
-      this.time.push(nowStr)
+      this.time.push(this.nowStr)
+      for (var i = 0; i < this.tableDataForExcel.length; i++) {
+        this.tableDataForExcel[i].time = this.time
+      }
 
       if (shift) {
         this.time.shift()
@@ -423,6 +491,7 @@ export default {
       if (run) {
         this.timerId = setInterval(() => {
           this.refreshTime(false)
+          console.log(this.time)
 
           var option = this.myChart.getOption()
           var seriesData = option.series
@@ -430,6 +499,7 @@ export default {
             var t = Math.random() * 100
             seriesData[i].data.push(t)
             this.tableData[i].value = t
+            this.tableDataForExcel[i].value.push(t)
           }
 
           this.myChart.setOption({
@@ -441,7 +511,7 @@ export default {
           })
         }, parseInt(this.cycleTime) * 1000)
       } else {
-        // 保存测试数据到本地
+        // 保存测试数据到本地 TODO
 
         clearInterval(this.timerId)
       }
@@ -469,6 +539,9 @@ export default {
       seriesData[itemNo - 1].name = rowData.lable
       console.log('------------')
       console.log(seriesData) //设置到option.series
+
+      this.tableDataForExcel[itemNo - 1].lable = rowData.lable
+
       if (itemNo <= 10) {
         console.log(itemNo)
         console.log(legendOne)
@@ -494,6 +567,13 @@ export default {
           series: seriesData
         })
       }
+    },
+
+    echartClick() {
+      console.log('echart被点击了')
+    },
+    containerClick() {
+      console.log('containerClick被点击了')
     }
   },
 
