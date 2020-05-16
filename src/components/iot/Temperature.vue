@@ -52,8 +52,9 @@
             </el-table-column>
           </el-table>
         </el-row>
-        <el-row v-show="true">
-          <el-table :data="tableDataForExcel">
+        <el-button type="primary" style="background-color: #0086b3" @click="exportExcel">导出</el-button>
+        <el-row v-show="false">
+          <el-table id="allDataTable" :data="tableDataForExcel">
             <el-table-column prop="chNo" label="Channel No."></el-table-column>
             <el-table-column prop="lable" label="Lable"></el-table-column>
             <el-table-column v-for="(t, i)  in time" :key="t" prop="value" :label="t">
@@ -73,6 +74,8 @@
 <script>
 // 全局引入echarts
 import echarts from 'echarts'
+import FileSaver from 'file-saver'
+import XLSX from 'xlsx'
 
 export default {
   data() {
@@ -574,6 +577,26 @@ export default {
     },
     containerClick() {
       console.log('containerClick被点击了')
+    },
+    exportExcel() {
+      /* generate workbook object from table */
+      //表名
+      var wb = XLSX.utils.table_to_book(document.querySelector('#allDataTable'))
+      /* get binary string as output */
+      var wbout = XLSX.write(wb, {
+        bookType: 'xlsx',
+        bookSST: true,
+        type: 'array'
+      })
+      try {
+        FileSaver.saveAs(
+          new Blob([wbout], { type: 'application/octet-stream' }),
+          'temperature.xlsx'
+        )
+      } catch (e) {
+        if (typeof console !== 'undefined') console.log(e, wbout)
+      }
+      return wbout
     }
   },
 
