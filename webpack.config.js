@@ -16,6 +16,15 @@ module.exports = {
         path: path.join(__dirname, './dist'), //指定打包好的文件输出到哪个目录中
         filename: 'bundle.js' //指定输出的文件名字
     },
+    mode: 'development', // 设置mode
+    performance: {
+        hints: 'warning', // 枚举 false关闭
+        maxEntrypointSize: 100000000, // 最大入口文件大小
+        maxAssetSize: 100000000, // 最大资源文件大小
+        assetFilter: function (assetFilename) { //只给出js文件的性能提示
+            return assetFilename.endsWith('.js');
+        }
+    },
     // devServer: {// 这是配置dev-server命令参数的第二种方式，相对来说这种方式麻烦一些
     //     // --open --port 3000 --contentBase src --hot
     //     open: true, //自动打开浏览器

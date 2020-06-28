@@ -349,7 +349,7 @@ export default {
             fontSize: 14
           },
           axisLabel: {
-            interval: 5,
+            interval: 100,
             rotate: 20
           }
         },
@@ -498,20 +498,49 @@ export default {
 
           var option = this.myChart.getOption()
           var seriesData = option.series
-          for (var i = 0; i < seriesData.length; i++) {
-            var t = Math.random() * 100
-            seriesData[i].data.push(t)
-            this.tableData[i].value = t
-            this.tableDataForExcel[i].value.push(t)
-          }
 
-          this.myChart.setOption({
-            xAxis: {
-              data: this.time
-            },
+          this.$http.get('api/gettemp').then(result => {
+            // console.log('onenet返回' + JSON.stringify(result.body))
+            // console.log(
+            //   JSON.parse(result.body['data']).data.datastreams[0].datapoints
+            // )
+            var tempObj = JSON.parse(result.body['data']).data.datastreams[0]
+              .datapoints[0]
+            seriesData[parseInt(tempObj.value.CH) - 1].data.push(
+              parseFloat(tempObj.value.TEMP) / 10
+            )
+            console.log(this)
+            this.tableData[parseInt(tempObj.value.CH) - 1].value =
+              parseFloat(tempObj.value.TEMP) / 10
+            this.tableDataForExcel[parseInt(tempObj.value.CH) - 1].value.push(
+              parseFloat(tempObj.value.TEMP) / 10
+            )
 
-            series: seriesData
+            this.myChart.setOption({
+              xAxis: {
+                data: this.time
+              },
+
+              series: seriesData
+            })
           })
+          console.log('%%%%%%%')
+          console.log(seriesData)
+
+          // for (var i = 0; i < seriesData.length; i++) {
+          //   var t = Math.random() * 100
+          //   seriesData[i].data.push(t)
+          //   this.tableData[i].value = t
+          //   this.tableDataForExcel[i].value.push(t)
+          // }
+
+          // this.myChart.setOption({
+          //   xAxis: {
+          //     data: this.time
+          //   },
+
+          //   series: seriesData
+          // })
         }, parseInt(this.cycleTime) * 1000)
       } else {
         // 保存测试数据到本地 TODO
