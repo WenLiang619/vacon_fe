@@ -26,7 +26,7 @@
           <el-col :span="7">
             <div class="grid-content bg-purple">Sweep Delay(s)</div>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="6">
             <!-- <div class="grid-content bg-purple-light"> -->
             <el-input
               onkeyup="this.value=this.value.replace(/\D|^0/g,'')"
