@@ -507,13 +507,13 @@ export default {
             var tempObj = JSON.parse(result.body['data']).data.datastreams[0]
               .datapoints[0]
             seriesData[parseInt(tempObj.value.CH) - 1].data.push(
-              parseFloat(tempObj.value.TEMP) / 10
+              parseFloat(tempObj.value.TEMP) / 100
             )
             console.log(this)
             this.tableData[parseInt(tempObj.value.CH) - 1].value =
-              parseFloat(tempObj.value.TEMP) / 10
+              parseFloat(tempObj.value.TEMP) / 100
             this.tableDataForExcel[parseInt(tempObj.value.CH) - 1].value.push(
-              parseFloat(tempObj.value.TEMP) / 10
+              parseFloat(tempObj.value.TEMP) / 100
             )
 
             this.myChart.setOption({
